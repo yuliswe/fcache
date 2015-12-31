@@ -1,6 +1,6 @@
 name:                fcache
 version:             0.1.0.0
-synopsis:            Cache (a -> b) function
+synopsis:            Cache a function (a -> b)
 description:         Please see README.md
 homepage:            http://github.com/ylilarry/fcache#readme
 license:             BSD3
