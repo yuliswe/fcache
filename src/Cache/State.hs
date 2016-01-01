@@ -29,7 +29,7 @@ import Prelude hiding (lookup)
 import Cache.Internal as I
 import Control.Monad.State
 
-type SCacheT k v n = StateT (Cache k v) n v
+type SCacheT k m v = StateT (Cache k v) m v
 type SCache k v = State (Cache k v) v
  
 
