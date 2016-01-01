@@ -50,40 +50,40 @@ instance (Hashable k, Eq k) => IsCache Cache k where
    } 
    
 
-class IsCache m k where   
+class IsCache c k where   
    -- | @newCache size@. Set a max number of elements the cache will hold.
    --
    -- If the newly inserted element exceeds the size limit,
    -- the oldest element is removed from the cache.
-   newCache :: Maybe Int -> m k v
+   newCache :: Maybe Int -> c k v
    
    -- | Alias for @newCache Nothing@
-   newUnlimitedCache :: m k v
+   newUnlimitedCache :: c k v
    newUnlimitedCache = newCache Nothing
    
    -- | Lookup an element from the cache
-   lookup :: k -> m k v -> Maybe v
+   lookup :: k -> c k v -> Maybe v
    
    -- | Insert an element to the cache. 
    --
    -- If the newly inserted element exceeds the size limit,
    -- the oldest element is removed from the cache.
-   insert :: k -> v -> m k v -> m k v
+   insert :: k -> v -> c k v -> c k v
    
    -- | Remove the oldest key from the cache.
-   dumpOldest :: m k v -> m k v
+   dumpOldest :: c k v -> c k v
    
    -- | Return the current number of elements.
-   size :: m k v -> Int
+   size :: c k v -> Int
    
    -- | Return the max number of elements the cache can hold.
-   limit :: m k v -> Maybe Int
+   limit :: c k v -> Maybe Int
 
    -- | Change the size limit.
-   setLimit :: Maybe Int -> m k v -> m k v
+   setLimit :: Maybe Int -> c k v -> c k v
    
    -- | @dump n cache@ removes n oldest elements from the cache.
-   dump :: Int -> m k v -> m k v
+   dump :: Int -> c k v -> c k v
    dump 0 cache = cache
    dump n cache = dump (n - 1) (dumpOldest cache)
  

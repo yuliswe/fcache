@@ -33,13 +33,13 @@ type SCacheT k v n = StateT (Cache k v) n v
 type SCache k v = State (Cache k v) v
  
 
-class (IsCache m k, Monad n) => IsSCacheT m k n where  
+class (IsCache c k, Monad m) => IsSCacheT c m k where  
    -- | @withCache action x@, "x" is an argument for the action.
    -- 
    -- If "x" is a key in the cache, ignore the "action" and return the cached value;
    --
    -- Otherwise perform the action and cache the result using "x" as a key. 
-   withCache :: (k -> n v) -> k -> StateT (m k v) n v
+   withCache :: (k -> m v) -> k -> StateT (c k v) m v
    withCache action k = do
       cache <- get
       case lookup k cache of
@@ -49,6 +49,6 @@ class (IsCache m k, Monad n) => IsSCacheT m k n where
             modify (insert k v)
             return v
 
-instance (IsCache m k, Monad n) => IsSCacheT m k n
+instance (IsCache c k, Monad m) => IsSCacheT c m k
 
    

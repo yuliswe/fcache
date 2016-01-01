@@ -1,5 +1,5 @@
 name:                fcache
-version:             0.1.0.0
+version:             1.0.0.0
 synopsis:            Cache a function (a -> b)
 description:         Please see README.md
 homepage:            http://github.com/ylilarry/fcache#readme
